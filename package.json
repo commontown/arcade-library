@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/commontown/demo-arcade-library.git"
+    "url": "git+https://github.com/commontown/arcade-library.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/commontown/demo-arcade-library/issues"
+    "url": "https://github.com/commontown/arcade-library/issues"
   },
-  "homepage": "https://github.com/commontown/demo-arcade-library#readme",
+  "homepage": "https://github.com/commontown/arcade-library#readme",
   "keywords": [
     "arcade",
     "library",
