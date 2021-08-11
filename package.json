@@ -1,14 +1,28 @@
 {
-  "name": "@ct-gilford/arcade-library",
+  "name": "@commontown/arcade-library",
   "version": "3.0.0",
   "description": "A small library for making games.",
-  "license": "MIT",
-  "repository": "ct-gilford/arcade-library",
   "main": "index.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commontown/demo-arcade-library.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/commontown/demo-arcade-library/issues"
+  },
+  "homepage": "https://github.com/commontown/demo-arcade-library#readme",
   "keywords": [
     "arcade",
     "library",
     "game",
     "package"
-  ]
+  ],
+  "publishConfig": {
+    "@commontown:registry": "https://npm.pkg.github.com"
+  }
 }
