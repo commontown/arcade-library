@@ -1,6 +1,6 @@
 {
-  "name": "@commontown/arcade-game-library",
-  "version": "3.0.0",
+  "name": "@commontown/arcade-library",
+  "version": "3.0.1",
   "description": "A small library for making games.",
   "main": "index.js",
   "scripts": {
