@@ -1,0 +1,16 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+    
+# keep the directory structure
+!directory_to_keep/.gitkeep
+node_modules
+
+# production
+/dist
+/documents
+    
+# misc
+.DS_Store
+*.swp
+npm-debug.log*
+    
+.babel_cache

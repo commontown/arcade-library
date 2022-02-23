@@ -4,7 +4,7 @@
   "description": "A small library for making games.",
   "main": "index.js",
   "scripts": {
-    "test": "exit 0"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,9 @@
   ],
   "publishConfig": {
     "@commontown:registry": "https://npm.pkg.github.com"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "jest": "^27.5.1"
   }
 }

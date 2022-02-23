@@ -1,7 +1,9 @@
 export const PublicPath = process.env.PUBLIC_URL;
-export const Phaser = window.Phaser;
+export const Phaser = typeof(window)!=='undefined' && window.Phaser;
 
-const rndgen = new Phaser.Math.RandomDataGenerator();
+export { default as quizConvert, quizConvertQuestions, quizExtractAnswers } from './ctquiz.js';
+
+const rndgen = Phaser && (new Phaser.Math.RandomDataGenerator());
 export function randBetween(x, y) {
   return rndgen.between(x, y);
 }
