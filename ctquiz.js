@@ -9,8 +9,8 @@ export function quizConvertQuestions(ctquiz) {
   // convert into json syntax
   const pats = [
     /"/g,
-    /[0-9](?:\.|。)\s*(\S[^\r\n]*)/g, // item body
-    /[A-F](?:\.|。)\s*(\S[^\r\n]*)/gi, // choice
+    /^[0-9]+(?:\.|。)\s*(\S[^\r\n]*)/mig, // item body
+    /^[A-F](?:\.|。)\s*(\S[^\r\n]*)/mig, // choice
     /##/g, // right choice
     /,\s*]/g, // end of array
     /^\s*]},/g, // start of buf
@@ -32,13 +32,16 @@ export function quizConvertQuestions(ctquiz) {
     const pat = pats[i], repl = repls[i];
     json = json.replace(pat, repl);
   }
+// console.log('json:', json);
 
   const data = JSON.parse(json);
 
-  // trim text
+  // trim text + parse media
   data.forEach(qn=>{
-    qn.body = qn.body.trim();
-    qn.choices.forEach( (choice, i) => (qn.choices[i] = choice.trim()) );
+    qn.body = quizExtractMedia(qn.body);
+    qn.choices.forEach( (choice, i) => {
+      qn.choices[i] = quizExtractMedia(choice);
+    })
   });
   return data;
 }
@@ -46,9 +49,9 @@ export function quizConvertQuestions(ctquiz) {
 export function quizExtractAnswers(ctquiz) {
   // extract right answers from quiz_content
   const pats = [
-    /[0-9](\.|。)\s*.*/g, // item body
-    /^([A-F])(\.|。).*##.*/mgi, // right choice
-    /^([A-F])(\.|。).*/mgi, // other choice
+    /^[0-9]+(\.|。)\s*.*/mig, // item body
+    /^([A-F])(\.|。).*##.*/mig, // right choice
+    /^([A-F])(\.|。).*/mig, // other choice
     /\s+/mg,
     /^,/, // remove first comma
   ];
@@ -65,7 +68,25 @@ export function quizExtractAnswers(ctquiz) {
     const pat = pats[i], repl = repls[i];
     answers = answers.replace(pat, repl);
   }
+  console.log('answers:', answers);
   answers = answers.split(',').map(letter=>letter.toUpperCase());
-//   console.log('answers:', answers);
+  console.log('answers:', answers);
   return answers;
 }
+
+function quizExtractMedia(str) {
+  // no media [[ ]], return trim str
+  if (str.indexOf('[[')<0) return str.trim();
+
+  const obj = {};
+  const pat = /\[\[([^|]*)\|([^\]]*)\]\]/g; 
+  const replfn = ((match, type, url)=> { 
+    obj[type] = url;
+    return ''; 
+  });
+
+  str = str.replaceAll(pat, replfn).trim();
+  if (str!=='') obj.text = str;
+  return obj;
+}
+
