@@ -321,3 +321,25 @@ export class Copyright {
   }
 }
 
+// 1. used by non-Phaser games
+// 2.. tell parent window ready for appletData
+// 3. wait for parent window to postMessage with appletData
+// 4. call callback with the supplied appletData
+export function portalRequestAppletData(callback) {
+  // do only if embeded
+  if (window.parent !== window) {
+    // listen for events from parents: pause, unpause and appletData
+    window.addEventListener('message', ev => {
+      const { type, params } = ev;
+      // console.log('message:', { type, params });
+      if (type === 'appletData') {
+        callback(params);
+      }
+    });
+
+    // tell parent i am ready
+    window.parent.postMessage('requestAppletData', '*');
+  } else {
+    callback(null);
+  }
+}
